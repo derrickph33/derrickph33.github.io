@@ -59,11 +59,6 @@
       }
       main {
         padding: 20px;
-        display: flex;
-        flex-direction: row; 
-        justify-content: space-around; 
-        flex-wrap: wrap;
-        gap: 20px; 
       }
 
       .blog {
@@ -77,6 +72,12 @@
         border: 2px solid #3389f3;
         padding: 10px;
         background-color: #fff;
+      }
+      #blog-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
       }
       .blog-details {
         max-width: 600px;
@@ -119,36 +120,51 @@
     </nav>
     <main>
       <h1>Blog</h1>
-      <h2 class="sub-header">Some of the things I've been up to recently outside of my career ambitions!</h2>
-      <div class="blog">
-        <a href="index.html">
-          <img src="tahoe.jpeg" alt="Tahoe Pic" class="blog-image">
-        </a>
-        <div class="blog-details">
-          <p class="blog-name">Trip to Tahoe, 09/2024</p>
-          <p class="blog-description">I recently was able to travel on a quick trip to Tahoe with a group of my close friends! We got to swim in the lake, go hiking, play golf, watch football, eat lots of good food, and had a great time all together.</p>
-        </div>
-      </div> 
-      <div class="blog">
-        <a href="index.html">
-          <img src="cabo.jpeg" alt="Cabo Pic" class="blog-image">
-        </a>
-        <div class="blog-details">
-          <p class="blog-name">Vacation in Cabo, 08/2024</p>
-          <p class="blog-description">I recently went to Cabo with my Mom and my sister. Some of the things we did there included swimming with dolphins, camel riding, snorkeling, spending lots of time on the beach and swimming in the water, and trying lots of new but good foods!</p>
-        </div>
-      </div>
-      <div class="blog">
-        <a href="index.html">
-          <img src="lit2.jpeg" alt="LIT2 Pic" class="blog-image">
-        </a>
-        <div class="blog-details">
-          <p class="blog-name">Internship at Amazon, 06/2024-09/2024</p>
-          <p class="blog-description">Last summer, I interned with Amazon in Little Rock, Arkansas. During my internship I made some great connections with my fellow interns, coworkers, and managers, and got to work on a internship project that ended up being successful in improving my site!</p>
-        </div>
-      </div>
+      <h2 class="sub-header">Some of the things I've been up to recently!</h2>
+      <div id="blog-container"></div>
     </main>
     <hr>
     <footer class="footer">© 2024 Derrick Phan | All Rights Reserved</footer>
+
+    <script src="blog.js"></script>
+    <script>
+      const blogContainer = document.getElementById('blog-container');
+      const blogs = window.blogs;
+
+      function loadBlogs(blogList) {
+        blogList.forEach(blog => {
+
+          const blogDiv = document.createElement('div');
+          blogDiv.classList.add('blog');
+
+          const blogLink = document.createElement('a');
+          blogLink.href = blog.link;
+
+          const blogImg = document.createElement('img');
+          blogImg.src = blog.image;
+          blogImg.alt = blog.imageAlt;
+          blogImg.classList.add('blog-image');
+
+          blogLink.appendChild(blogImg);
+          const blogDetails = document.createElement('div');
+          blogDetails.classList.add('blog-details');
+
+          const blogTitle = document.createElement('p');
+          blogTitle.classList.add('blog-name');
+          blogTitle.textContent = blog.title;
+
+          const blogDesc = document.createElement('p');
+          blogDesc.classList.add('blog-description');
+          blogDesc.textContent = blog.description;
+
+          blogDetails.appendChild(blogTitle);
+          blogDetails.appendChild(blogDesc);
+          blogDiv.appendChild(blogLink);
+          blogDiv.appendChild(blogDetails);
+          blogContainer.appendChild(blogDiv);
+        });
+      }
+      loadBlogs(blogs);
+    </script>
   </body>
 </html>
